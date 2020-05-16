@@ -111,10 +111,10 @@ class List {
 
 		//CONVERT THIS FUNCTION
 		void pop_back() {
-			Llist *back_to_remove = _back;
+			Dlist *back_to_delete = _back;
 
 			if(_front->next!=nullptr) {
-				Llist *new_back = _front;
+				Dlist *new_back = _front;
 				while(new_back->next!=_back) {
 					new_back=new_back->next;
 				}
@@ -126,7 +126,7 @@ class List {
 				_back=nullptr;
 			}
 
-			delete back_to_remove;
+			delete back_to_delete;
 			_size-=1;
 		}
 
@@ -137,10 +137,38 @@ class List {
 
 		//Modify this
 		void print() {
-			Llist *temp;
+			Dlist *temp;
 			for(temp=_front; temp!=nullptr; temp=temp->next) {
 				std::cout << temp->value << " ";
 			}
 			std::cout << std::endl;
+		}
+		void print_back() {
+			Dlist *temp;
+			for(temp=_back; temp!=nullptr; temp=temp->prev){
+				std::cout << temp->value << " ";
+			}
+			std::cout << std::endl;
+		}
+		friend bool operator==(const List<Data> &a, const List<Data> &b){
+			Dlist *tempA, *tempB;
+			while(tempA != NULL and tempB != NULL){
+				if (tempA->value != tempB->value){
+					return false;
+				}
+				tempA = tempA->next;
+				tempB = tempB->next;
+			}
+
+			return true;
+		}
+		friend bool operator!=(const List<Data> &a, const List<Data> &b){
+			Dlist *tempA, *tempB;
+			while(tempA != NULL and tempB != NULL){
+				if (tempA->value != tempB->value){
+					return true;
+				}
+				return false;
+			}
 		}
 };
